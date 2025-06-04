@@ -1,0 +1,82 @@
+// Archivo: Hearts&Paws-dbdiagram.dbml
+
+Table usuarios {
+  id UUID [pk, not null]
+  nombre varchar
+  email varchar [unique, not null]
+  password varchar [not null]
+  telefono varchar
+  direccion varchar
+  ciudad varchar
+  pais varchar
+  rol enum('usuario', 'admin') [default: 'usuario']
+  creado_en timestamp [default: `now()`]
+}
+
+Table organizaciones {
+  id UUID [pk, not null]
+  nombre varchar [not null]
+  email varchar [unique, not null]
+  descripcion text
+  telefono varchar
+  direccion varchar
+  ciudad varchar
+  pais varchar
+  creado_en timestamp [default: `now()`]
+}
+
+Table mascotas {
+  id UUID [pk, not null]
+  nombre varchar
+  edad int
+  tipo varchar
+  raza varchar
+  descripcion text
+  estado_adopcion boolean [default: false]
+  estado_donacion boolean [default: false]
+  organizacion_id UUID [not null, ref: > organizaciones.id]
+  creada_en timestamp [default: `now()`]
+}
+
+Table donaciones {
+  id UUID [pk, not null]
+  usuario_id UUID [ref: > usuarios.id]
+  mascota_id UUID [ref: > mascotas.id]
+  monto decimal
+  fecha timestamp [default: `now()`]
+  metodo_pago varchar
+  referencia_pago varchar
+}
+
+Table adopciones {
+  id UUID [pk, not null]
+  usuario_id UUID [ref: > usuarios.id]
+  mascota_id UUID [ref: > mascotas.id]
+  fecha timestamp [default: `now()`]
+  estado enum('pendiente', 'aceptada', 'rechazada') [default: 'pendiente']
+}
+
+Table archivos {
+  id UUID [pk, not null]
+  mascota_id UUID [ref: > mascotas.id]
+  url varchar
+  tipo enum('foto', 'documento')
+  descripcion text
+}
+
+Table chats {
+  id UUID [pk, not null]
+  emisor_id UUID [ref: > usuarios.id]
+  receptor_id UUID [ref: > usuarios.id]
+  mensaje text
+  enviado_en timestamp [default: `now()`]
+}
+
+Table notificaciones {
+  id UUID [pk, not null]
+  usuario_id UUID [ref: > usuarios.id]
+  titulo varchar
+  mensaje text
+  leida boolean [default: false]
+  creada_en timestamp [default: `now()`]
+}
