@@ -1,4 +1,4 @@
-# PataSolidaria - Documentación Inicial del Proyecto
+# Hearts&Paws - Documentación Inicial del Proyecto
 
 ## 📄 Resumen Ejecutivo
 
