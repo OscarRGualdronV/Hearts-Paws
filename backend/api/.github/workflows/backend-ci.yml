@@ -1,0 +1,36 @@
+name: Backend CI
+
+on:
+    push:
+        branches:
+        - main
+        - dev
+
+jobs:
+    build-and-test:
+        runs-on: ubuntu-latest
+        env:
+            NODE_VERSION: 18
+        defaults:
+            run:
+                working-directory: back
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v3
+
+          - name: Use Node.js
+            uses: actions/setup-node@v3
+            with:
+                node-version: ${{ env.NODE_VERSION }}
+
+          - name: Install dependencies
+            run: npm install
+
+          - name: Lint
+            run: npm run lint
+
+          - name: Run tests
+            run: npm run test
+
+          - name: Build
+            run: npm run buil 
