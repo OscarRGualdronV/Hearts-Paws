@@ -5,8 +5,8 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('/ping')
-  ping(){
-    return 'pong';
+  @Get('ping')
+  getPing(){
+    return {message: 'pong'}
   }
 }
